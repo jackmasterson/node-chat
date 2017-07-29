@@ -24,6 +24,7 @@ app.get('/', function (req, res, next) {
                 res.sendFile(__dirname + '/views/index.html');
               });
              this.emit('logged-in', true);
+             this.refreshDB();
             
             // });
         }

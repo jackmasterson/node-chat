@@ -3,7 +3,7 @@ var MongoClient = require('mongodb').MongoClient;
 var mgdb = process.env.MONGO_DB_SID;
 var app = require('./app.js');
 // Connect to the db
-function refreshDB () {
+this.refreshDB () {
 	console.log('refreshing this DB');
 	MongoClient.connect(mgdb, function(err, db) {
 	  if(!err) {
@@ -21,4 +21,4 @@ function refreshDB () {
 	}); 
 }  
 
-refreshDB();
+// refreshDB();
