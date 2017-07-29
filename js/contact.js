@@ -1,5 +1,4 @@
-va
-var socket = io.connect(3511);
+var socket = io.connect(window.location.href + ':3511');
 socket.on('connect', function(data) {
 	socket.emit('join', 'Hello World from CONTACT.JS');
 });
