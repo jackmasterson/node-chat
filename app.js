@@ -6,12 +6,33 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var fs = require('fs');
 var mess = [];
-var port = process.env.PORT || 3511;
+var port = 7094;
+var that = this;
 server.listen(port);
 
-app.get('/', function (req, res) {
-  res.sendFile(__dirname + '/views/index.html');
+app.get('/', function (req, res, next) {
+  res.sendFile(__dirname + '/views/login.html');
+  io.on('connection', function(client) {  
+
+    console.log('Client connected...');
+    client.on('login-now', function(userInfo) {
+        // submitLogin(userInfo);
+        if (userInfo.un === process.env.USERNAME && userInfo.pw === process.env.PASS) {
+            console.log('made it, where to go from here?');
+            // app.post('/home', function(req, res) {
+             app.get('/home', function(req, res) {
+                res.sendFile(__dirname + '/views/index.html');
+              });
+             this.emit('logged-in', true);
+            
+            // });
+        }
+    });
+  });
 });
+
+
+
 
 app.get('/add-contact', function(req, res) {
     res.sendFile(__dirname + '/views/contact.html');
@@ -24,6 +45,7 @@ app.get('/send-to', function(req, res) {
 app.use("/css", express.static(__dirname + '/css'));
 app.use("/js/script.js", express.static(__dirname + '/js/script.js'));
 app.use("/js/send.js", express.static(__dirname + '/js/send.js'));
+app.use("/js/login.js", express.static(__dirname + '/js/login.js'));
 app.use("/js/contact.js", express.static(__dirname + '/js/contact.js'));
 app.use("/keyboard.js", express.static(__dirname + '/keyboard.js'));
 app.use("/auto.js", express.static(__dirname + '/auto.js'));
@@ -36,7 +58,11 @@ this.refresh = function(dbInfo) {
 
 this.mongo = function(dbInfo) {
     io.on('connection', function(client) {  
+
         console.log('Client connected...');
+        // client.on('login-now', function(userInfo) {
+        //     submitLogin(userInfo);
+        // });
 
         client.on('join', function(data) {
 

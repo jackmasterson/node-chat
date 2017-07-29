@@ -12,11 +12,8 @@ var send;
 var init = {
 
 	openSocket: function() {
-		console.log('trying to OPEN THE SOCKET:   ');
-
-		init.socket = io.connect();
+		init.socket = io.connect('http://localhost:7094/');
 			init.socket.on('connect', function(data) {
-				console.log('HERE&%&%&%&&%&%&%&%:   ');
 				init.socket.emit('join', 'Hello World from client');
 			});
 			init.socket.on('mongo', function (dbData) {

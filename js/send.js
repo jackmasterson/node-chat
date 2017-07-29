@@ -26,7 +26,7 @@ var house = {
 
 };
 
-socket = io.connect(window.location.origin + ':3511');
+socket = io.connect('http://localhost:7094/');
 	socket.on('connect', function(data) {
 		socket.emit('join', 'send.js activated');
 	});

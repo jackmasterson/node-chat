@@ -1,4 +1,4 @@
-var socket = io.connect(window.location.origin+ ':3511');
+var socket = io.connect('http://localhost:7094/');
 socket.on('connect', function(data) {
 	socket.emit('join', 'Hello World from CONTACT.JS');
 });
