@@ -14,7 +14,7 @@ app.get('/', function (req, res, next) {
   res.sendFile(__dirname + '/views/login.html');
   io.on('connection', function(client) {  
 
-    console.log('Client connected...');
+    console.log('Client connected with user info');
     client.on('login-now', function(userInfo) {
         // submitLogin(userInfo);
         if (userInfo.un === process.env.USERNAME && userInfo.pw === process.env.PASS) {
@@ -57,9 +57,10 @@ this.refresh = function(dbInfo) {
 };
 
 this.mongo = function(dbInfo) {
+    console.log('running this dot mongo');
     io.on('connection', function(client) {  
 
-        console.log('Client connected...');
+        console.log('Client connected in this dot mongo');
         // client.on('login-now', function(userInfo) {
         //     submitLogin(userInfo);
         // });
