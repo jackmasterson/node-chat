@@ -1,8 +1,7 @@
 require('dotenv').config();
 var MongoClient = require('mongodb').MongoClient;
 var mgdb = process.env.MONGO_DB_SID;
-// var app = require('./app.js');
-var self = this;
+var app = require('./app.js');
 // Connect to the db
 function refreshDB () {
 	console.log('refreshing this DB');
@@ -13,7 +12,7 @@ function refreshDB () {
 	    var collection = db.collection('contacts');
 	    collection.find().toArray(function(err, items) {
 	    	console.log(items);
-	    	self.mongo(items);
+	    	app.mongo(items);
 	    });
 
 	  } else {

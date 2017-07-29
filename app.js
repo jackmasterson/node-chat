@@ -9,31 +9,7 @@ var mess = [];
 var port = process.env.PORT || 7094;
 var that = this;
 server.listen(port);
-require('dotenv').config();
-var MongoClient = require('mongodb').MongoClient;
-var mgdb = process.env.MONGO_DB_SID;
-// var app = require('./app.js');
-var self = this;
-// Connect to the db
-function refreshDB () {
-    console.log('refreshing this DB');
-    MongoClient.connect(mgdb, function(err, db) {
-      if(!err) {
-        console.log("We are connected");
 
-        var collection = db.collection('contacts');
-        collection.find().toArray(function(err, items) {
-            console.log(items);
-            self.mongo(items);
-        });
-
-      } else {
-        console.log('MONGO DB ERROR IS: ', err);
-      }
-    }); 
-}  
-
-refreshDB();
 app.get('/', function (req, res, next) {
   res.sendFile(__dirname + '/views/login.html');
   io.on('connection', function(client) {  
