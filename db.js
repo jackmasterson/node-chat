@@ -4,6 +4,7 @@ var mgdb = process.env.MONGO_DB_SID;
 var app = require('./app.js');
 // Connect to the db
 function refreshDB () {
+	console.log('refreshing this DB');
 	MongoClient.connect(mgdb, function(err, db) {
 	  if(!err) {
 	    console.log("We are connected");
@@ -14,6 +15,8 @@ function refreshDB () {
 	    	app.mongo(items);
 	    });
 
+	  } else {
+	  	console.log('MONGO DB ERROR IS: ', err);
 	  }
 	}); 
 }  
