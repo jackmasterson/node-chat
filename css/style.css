@@ -1,0 +1,48 @@
+body {
+	text-align: center;
+}
+
+.letters {
+	float: left;
+	width: 5vw;
+	height: 3vw;
+	margin: 25px;
+	border: 1px solid black;
+	vertical-align: middle;
+
+}
+
+.space-right {
+	margin: 25px 100vw 25px 25px;
+}
+
+.space-top {
+	margin: 10vh 25px 25px 25px;
+}
+
+.space-bar {
+	position: absolute;
+	bottom: 25px;
+	width: 30vw;
+}
+
+.back-space {
+	position: absolute;
+	bottom: 25px;
+	right: 5px;
+}
+
+.hide {
+	display: none;
+}
+
+#add-contact {
+	position: absolute;
+	bottom: 0px;
+	right: 10px;
+}
+#remove-contact {
+	position: absolute;
+	bottom: 0px;
+	right: 180px;
+}
