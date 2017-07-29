@@ -12,7 +12,7 @@ var send;
 var init = {
 
 	openSocket: function() {
-		init.socket = io.connect('http://localhost:7094/');
+		init.socket = io.connect();
 			init.socket.on('connect', function(data) {
 				init.socket.emit('join', 'Hello World from client');
 			});

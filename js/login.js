@@ -1,4 +1,4 @@
-var socket = io.connect('http://localhost:7094/');
+var socket = io.connect();
 var sub = document.getElementById('submit-info');
 sub.addEventListener('click', function() {
 	var un = document.getElementById('username');
