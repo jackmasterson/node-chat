@@ -58,7 +58,7 @@ var init = {
 			var j = document.createElement('div');
 			j.setAttribute('class', 'letters hide autoword');
 			j.addEventListener('click', function() {
-				store.message.length = 0;
+				store.message.pop();
 				store.message.push(this.innerHTML + ' ');
 				house.showMessage();
 			});
@@ -95,7 +95,7 @@ var grabs = {
 var house = {
 	getValue: function(pos, val, num) {
 		pos.addEventListener('click', function() {
-			store.autoMess.length = 0;
+			// store.autoMess.length = 0;
 			if (val === 'backspace') {
 				store.message.pop();
 			} else if (val === 'send-to') {
@@ -111,7 +111,9 @@ var house = {
 				store.message.push(this.innerHTML);
 			}
 
-			var show = house.showMessage();
+			var show = house.showMessage().split(' ');
+			var len = show.length - 1;
+			show = show[len];
 			for (var f = 0; f < auto.length; f++) {
 				var aut = auto[f].phrase;
 				if (aut.indexOf(show) > -1) {
