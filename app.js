@@ -6,7 +6,7 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var fs = require('fs');
 var mess = [];
-var port = process.env.PORT || 7092;
+var port = process.env.PORT || 3511;
 server.listen(port);
 
 app.get('/', function (req, res) {
