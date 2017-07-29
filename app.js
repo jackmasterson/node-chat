@@ -6,7 +6,8 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var fs = require('fs');
 var mess = [];
-server.listen(7092);
+var port = process.env.PORT || 7092;
+server.listen(port);
 
 app.get('/', function (req, res) {
   res.sendFile(__dirname + '/views/index.html');
