@@ -12,6 +12,7 @@ var send;
 var init = {
 
 	openSocket: function() {
+		console.log('trying to OPEN THE SOCKET:   ');
 
 		init.socket = io.connect();
 			init.socket.on('connect', function(data) {
