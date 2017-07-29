@@ -4,7 +4,7 @@ var init = {
 			var contact = send[k].name;
 			var phone = send[k].number;
 			var v = document.createElement('div');
-			v.setAttribute('class', 'contacts hide');
+			v.setAttribute('class', 'contacts letters');
 			v.innerHTML = contact;
 			v.setAttribute('data-phone-id', phone);
 			document.body.appendChild(v);
@@ -17,7 +17,7 @@ var house = {
 	contacts: function() {
 		var divs = document.querySelectorAll('.contacts');
 		for (var f = 0; f < divs.length; f++) {
-			divs[f].setAttribute('class', 'contacts');
+			divs[f].setAttribute('class', 'contacts letters');
 			divs[f].addEventListener('click', function() {
 				socket.emit('destination', this.getAttribute('data-phone-id'));
 			});

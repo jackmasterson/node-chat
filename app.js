@@ -9,21 +9,21 @@ var mess = [];
 server.listen(7092);
 
 app.get('/', function (req, res) {
-  res.sendFile(__dirname + '/index.html');
+  res.sendFile(__dirname + '/views/index.html');
 });
 
 app.get('/add-contact', function(req, res) {
-    res.sendFile(__dirname + '/add-contact.html');
+    res.sendFile(__dirname + '/views/contact.html');
 });
 
 app.get('/send-to', function(req, res) {
-    res.sendFile(__dirname + '/send.html');
+    res.sendFile(__dirname + '/views/send.html');
 });
 
 app.use("/css", express.static(__dirname + '/css'));
-app.use("/script.js", express.static(__dirname + '/script.js'));
+app.use("/js/script.js", express.static(__dirname + '/js/script.js'));
 app.use("/js/send.js", express.static(__dirname + '/js/send.js'));
-app.use("/contact.js", express.static(__dirname + '/contact.js'));
+app.use("/js/contact.js", express.static(__dirname + '/js/contact.js'));
 app.use("/keyboard.js", express.static(__dirname + '/keyboard.js'));
 app.use("/auto.js", express.static(__dirname + '/auto.js'));
 
