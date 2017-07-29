@@ -15,6 +15,7 @@ var init = {
 
 		init.socket = io.connect();
 			init.socket.on('connect', function(data) {
+				console.log('HERE&%&%&%&&%&%&%&%:   ');
 				init.socket.emit('join', 'Hello World from client');
 			});
 			init.socket.on('mongo', function (dbData) {
