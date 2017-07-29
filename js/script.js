@@ -13,7 +13,7 @@ var init = {
 
 	openSocket: function() {
 
-		init.socket = io.connect(window.location.hostname);
+		init.socket = io.connect(3511);
 			init.socket.on('connect', function(data) {
 				init.socket.emit('join', 'Hello World from client');
 			});
