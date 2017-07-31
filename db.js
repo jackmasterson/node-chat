@@ -5,7 +5,8 @@ var app = require('./app.js');
 // Connect to the db
 this.refreshDB = function() {
 	console.log('refreshing this DB');
-	MongoClient.connect(mgdb, function(err, db) {
+	MongoClient.connect(mgdb, {
+		uri_decode_auth: true}, function(err, db) {
 	  if(!err) {
 	    console.log("We are connected");
 
@@ -18,7 +19,7 @@ this.refreshDB = function() {
 	  } else {
 	  	console.log('MONGO DB ERROR IS: ', err);
 	  }
-	}); 
-}  
+	});
+}
 
 // refreshDB();
