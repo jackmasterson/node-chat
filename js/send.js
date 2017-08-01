@@ -19,6 +19,7 @@ var house = {
 		for (var f = 0; f < divs.length; f++) {
 			divs[f].setAttribute('class', 'contacts letters');
 			divs[f].addEventListener('click', function() {
+				console.log('should be emitting at destination send.js');
 				socket.emit('destination', this.getAttribute('data-phone-id'));
 			});
 		}
