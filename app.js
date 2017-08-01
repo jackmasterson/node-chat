@@ -87,6 +87,8 @@ this.mongo = function(dbInfo) {
         });
         client.on('destination', function(data) {
             console.log('made it to twilio with data: ', data);
+            console.log('made it to twilio with message: ', mess[0]);
+            console.log('made it to twilio with from: ', from);
             var twilio = require('twilio');
             var accountSid = process.env.TWILIO_ACCOUNT_SID;
             var authToken = process.env.TWILIO_ACCOUNT_AUTH;
