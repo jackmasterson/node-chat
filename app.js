@@ -75,6 +75,7 @@ this.mongo = function(dbInfo) {
         client.on('message', function(info) { 
             mess.length = 0;
             mess.push(info);
+            console.log('info is: ', info);
         });
 
         client.on('add-contact', function(cont) {
@@ -85,6 +86,7 @@ this.mongo = function(dbInfo) {
             db.remInfo(cont);
         });
         client.on('destination', function(data) {
+            console.log('made it to twilio with data: ', data);
             var twilio = require('twilio');
             var accountSid = process.env.TWILIO_ACCOUNT_SID;
             var authToken = process.env.TWILIO_ACCOUNT_AUTH;
