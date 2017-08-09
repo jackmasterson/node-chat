@@ -15,8 +15,10 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.post("/messages", function (request, response) {
   console.log(request.body);
   console.log(response.body.Body);
-  console.log(response.body.From);
-  response.send("<Response><Message>Hello from Twilio!</Message></Response>")
+  var text = response.body.Body;
+  io.on('connection', function(client) {
+    client.emit('incoming', text);
+  });
 });
 app.get('/login', function (req, res, next) {
   res.sendFile(__dirname + '/views/login.html');
