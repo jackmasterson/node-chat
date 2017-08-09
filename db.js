@@ -21,4 +21,19 @@ this.refreshDB = function() {
 	});
 }
 
+this.addInfo = function(contact) {
+	console.log('contact is: ', contact);
+	MongoClient.connect(mgdb, function(err, db) {
+		if(!err) {
+			console.log("We are connected and ready to insert a contact");
+
+			var collection = db.collection('contacts');
+			collection.insert( contact );
+			app.refresh(contact);
+		} else {
+			console.log('MONGO DB ERROR IS: ', err);
+		}
+	});
+}
+
 // refreshDB();

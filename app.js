@@ -10,9 +10,9 @@ var port = process.env.PORT || 7094;
 var that = this;
 server.listen(port);
 
-app.get('/', function (req, res, next) {
+app.get('/login', function (req, res, next) {
   res.sendFile(__dirname + '/views/login.html');
-  io.on('connection', function(client) {  
+  io.on('connection', function(client) {
 
     console.log('Client connected with user info');
     client.on('login-now', function(userInfo) {
@@ -20,12 +20,12 @@ app.get('/', function (req, res, next) {
         if (userInfo.un === process.env.USERNAME && userInfo.pw === process.env.PASS) {
             console.log('made it, where to go from here?');
             // app.post('/home', function(req, res) {
-             app.get('/home', function(req, res) {
+             app.get('/', function(req, res) {
                 res.sendFile(__dirname + '/views/index.html');
               });
              this.emit('logged-in', true);
              db.refreshDB();
-            
+
             // });
         }
     });
@@ -53,13 +53,15 @@ app.use("/auto.js", express.static(__dirname + '/auto.js'));
 
 this.refresh = function(dbInfo) {
     io.on('connection', function(client) {
+      console.log(client);
+      console.log(dbInfo);
         client.emit('mongoUpdate', dbInfo);
     });
 };
 
 this.mongo = function(dbInfo) {
     console.log('running this dot mongo');
-    io.on('connection', function(client) {  
+    io.on('connection', function(client) {
 
         console.log('Client connected in this dot mongo');
         // client.on('login-now', function(userInfo) {
@@ -67,18 +69,19 @@ this.mongo = function(dbInfo) {
         // });
 
         client.on('join', function(data) {
-
+          console.log(data);
         });
 
         client.emit('mongo', dbInfo);
 
-        client.on('message', function(info) { 
+        client.on('message', function(info) {
             mess.length = 0;
             mess.push(info);
             console.log('info is: ', info);
         });
 
         client.on('add-contact', function(cont) {
+          console.log('cont is : ', cont);
             db.addInfo(cont);
         });
 
@@ -94,14 +97,13 @@ this.mongo = function(dbInfo) {
             var authToken = process.env.TWILIO_ACCOUNT_AUTH;
             var from = process.env.TWILIO_ACCOUNT_NUM;
             var client = new twilio(accountSid, authToken);
-            
+
             client.messages.create({
                 body: mess[0],
                 to: data,
                 from:  from
             });
-            
+
         });
     });
 }
-

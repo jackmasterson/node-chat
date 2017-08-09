@@ -4,6 +4,7 @@ var store = {
 	message: [],
 	dest: [],
 	autoMess: [],
+	x: 0,
 }
 // set this in the database, and if the name clicked matches the name in the backend, use it?
 // this will also be coming from an auth'd user in a secure database, ideally
@@ -36,7 +37,7 @@ var init = {
 				num = arr[k].num;
 			}
 			var d = document.createElement('div');
-			
+
 			d.innerHTML = character;
 			house.getValue(d, character, num);
 			house.setClasses(d, num);
@@ -48,40 +49,83 @@ var init = {
 			init.socket.emit('message', grabs.h3.innerHTML);
 			store.message.length = 0;
 		});
+		for (var t = 0; t < 6; t++) {
+			var d = document.createElement('div');
+			d.setAttribute('class', 'autowords letters hide');
+			document.body.appendChild(d);
+		}
 		document.body.appendChild(a);
-		init.createAutoSlots();
+		// init.createAutoSlots();
 	},
 
 	createAutoSlots: function() {
-		for (var t = 0; t < 6; t++) {
-			var j = document.createElement('div');
-			j.setAttribute('class', 'letters hide autoword');
-			j.addEventListener('click', function() {
-				store.message.pop();
-				store.message.push(this.innerHTML + ' ');
-				house.showMessage();
-			});
-			document.body.appendChild(j);
-		}
+		// for (var t = 0; t < 6; t++) {
+		// 	var j = document.createElement('div');
+		//
+		// 	j.setAttribute('class', 'letters hide autoword');
+		// 	j.
+		// }
 	},
 
 	autoPopulate: function(arr, type) {
-		var slots = document.getElementsByClassName('autoword');
-		if (arr.length === 0) {
-			for (var t = 0; t < slots.length; t++) {
-				slots[t].setAttribute('class', 'letters hide autoword');
-			}
-		} else {
-			for (var f = 0; f < slots.length; f++) {
-				slots[f].setAttribute('class', 'letters hide autoword');
-			}
+		var show = house.showMessage().split(' ');
+		var len = show.length - 1;
+		var autoLen;
+		var autos = document.getElementsByClassName('autowords');
+		if (autos && autos.length > 0) {
+			for (var j = 0; j < autos.length; j++) {
+				autos[j].setAttribute('class', 'autowords letters hide');
+				autos[j].addEventListener('click', function() {
+					if (store.message[store.message.length - 1] !== ' ') {
+						var update = store.message.join('');
+						console.log(update);
+						if (update.slice(-1) !== ' ') {
+							update = update.split(' ');
+						} else {
+							update = [update];
+						}
+						console.log(update);
+						update.pop();
+						store.message = update;
+					}
+					store.message.push(' ' + this.innerHTML + ' ');
+					for (var f = 0; f < store.message.length; f++) {
+						var mes = store.message[f];
+						if (mes.slice(-1) !== ' ') {
+							mes = mes + ' ';
+							store.message[f] = mes;
+						}
+					}
+					// console.log(store.message);
+					house.showMessage();
 
-			for (var t = 0; t < arr.length; t++) {
-				slots[t].innerHTML = arr[t];
-				slots[t].setAttribute('class', 'letters autoword');
+
+				});
+				// document.body.appendChild(autos[j);
 			}
 		}
-		init.autofillLength = arr.length;
+		// console.log(store.autoMess);
+
+	},
+
+	fillThoseSlots: function(autos) {
+		var els = document.getElementsByClassName('autowords');
+		console.log(els);
+		console.log(autos);
+		console.log(store.x);
+		els[store.x].innerHTML = autos;
+		els[store.x].setAttribute('class', 'autowords letters');
+		++store.x;
+
+		// console.log('filling slots');
+		// var els = document.getElementsByClassName('autowords');
+		// var msgs = auto;
+		// console.log(els, msgs);
+		// for (var t = 0; t < msgs.length; t++) {
+		// 	els[t].innerHTML = msgs[t];
+		// 	els[t].setAttribute('class', 'autowords letters');
+		// }
+
 	}
 };
 
@@ -92,35 +136,53 @@ var grabs = {
 };
 
 var house = {
+
+	clearAutoPops: function() {
+		var slots = document.getElementsByClassName('autoword');
+	},
+
 	getValue: function(pos, val, num) {
 		pos.addEventListener('click', function() {
-			// store.autoMess.length = 0;
+			console.log(store.message);
 			if (val === 'backspace') {
 				store.message.pop();
 			} else if (val === 'send-to') {
-				// for (var t = 0; t < grabs.letters.length; t++) {
-				// 	var letter = grabs.letters[t];
-				// 	letter.setAttribute('class', 'letters hide');
-				// }
-			 //    init.socket.emit('message', grabs.h3.innerHTML);
-				// store.message.length = 0;
-				// house.contacts();
+				/* some code */
 			}
 			if (val !== 'backspace' && val !== 'send-to') {
 				store.message.push(this.innerHTML);
 			}
-
-			var show = house.showMessage().split(' ');
-			var len = show.length - 1;
-			show = show[len];
-			for (var f = 0; f < auto.length; f++) {
-				var aut = auto[f].phrase;
-				if (aut.indexOf(show) > -1) {
-					store.autoMess.push(aut);
+			if (val !== 'send-to') {
+				if (init.hasRun !== true) {
+					init.hasRun = true;
+					init.autoPopulate();
 				}
-			}
-			if (val!== 'send-to') {
-				init.autoPopulate(store.autoMess, 'autofill');
+				var show = house.showMessage();
+				console.log('first show: ', show);
+				// below is close to workable
+				if (show.split(' ').length > 1) {
+					show = show[show.length - 1];
+					console.log(show);
+					console.log(store.message);
+				}
+
+				var those = document.getElementsByClassName('autowords');
+				for (var d = 0; d < those.length; d++) {
+					var th = those[d];
+					th.innerHTML = '';
+					th.setAttribute('class', 'autowords hide');
+				}
+				store.x = 0;
+				store.autoMess.length = 0;
+				for (var f = 0; f < auto.length; f++) {
+					var aut = auto[f].phrase;
+					// console.log(aut);
+					console.log('show:  ', show);
+					if (aut.indexOf(show) > -1) {
+						store.autoMess.push(aut);
+						init.fillThoseSlots(aut);
+					}
+				}
 			}
 		});
 	},

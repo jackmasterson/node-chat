@@ -14,7 +14,7 @@ socket.on('logged-in', function(data) {
 	console.log(data);
 	if (data === true) {
 		var a = document.createElement('a');
-		a.setAttribute('href', '/home');
+		a.setAttribute('href', '/');
 		a.innerHTML = 'click to proceed';
 		document.body.appendChild(a);
 	}
