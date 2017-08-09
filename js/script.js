@@ -222,8 +222,3 @@ var house = {
 
 
 init.openSocket();
-init.socket.on('incoming', function (text) {
-	console.log(text);
-	var t = document.getElementById('new-text');
-	t.innerHTML = text;
-});
