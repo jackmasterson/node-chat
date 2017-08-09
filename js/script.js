@@ -20,6 +20,7 @@ var init = {
 			init.socket.on('mongo', function (dbData) {
 				send = dbData;
 				init.lets();
+				textReceived.inbound();
 			});
 	},
 
