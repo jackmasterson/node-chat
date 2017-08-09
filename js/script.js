@@ -21,11 +21,6 @@ var init = {
 				send = dbData;
 				init.lets();
 			});
-			init.socket.on('incoming', function (text) {
-				console.log(text);
-				var t = document.getElementById('new-text');
-				t.innerHTML = text;
-			});
 	},
 
 	lets: function() {
@@ -227,3 +222,8 @@ var house = {
 
 
 init.openSocket();
+init.socket.on('incoming', function (text) {
+	console.log(text);
+	var t = document.getElementById('new-text');
+	t.innerHTML = text;
+});
