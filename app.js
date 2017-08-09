@@ -14,8 +14,8 @@ server.listen(port);
 app.use(bodyParser.urlencoded({extended: false}));
 app.post("/messages", function (request, response) {
   console.log(request.body);
-  console.log(response.body.Body);
-  var text = response.body.Body;
+  console.log(request.body.Body);
+  var text = request.body.Body;
   io.on('connection', function(client) {
     client.emit('incoming', text);
   });
