@@ -5,11 +5,19 @@ var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var fs = require('fs');
+var bodyParser = require('body-parser');
+
 var mess = [];
 var port = process.env.PORT || 7094;
 var that = this;
 server.listen(port);
-
+app.use(bodyParser.urlencoded({extended: false}));
+app.post("/messages", function (request, response) {
+  console.log(request.body);
+  console.log(response.body.Body);
+  console.log(response.body.From);
+  response.send("<Response><Message>Hello from Twilio!</Message></Response>")
+});
 app.get('/login', function (req, res, next) {
   res.sendFile(__dirname + '/views/login.html');
   io.on('connection', function(client) {
