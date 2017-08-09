@@ -20,7 +20,11 @@ var init = {
 			init.socket.on('mongo', function (dbData) {
 				send = dbData;
 				init.lets();
-				textReceived.inbound();
+			});
+			init.socket.on('incoming', function (text) {
+				console.log(text);
+				var t = document.getElementById('new-text');
+				t.innerHTML = text;
 			});
 	},
 
@@ -219,16 +223,6 @@ var house = {
 	}
 
 };
-
-var textReceived = {
-	inbound: function() {
-		init.socket.on('incoming', function (text) {
-			console.log(text);
-			var t = document.getElementById('new-text');
-			t.innerHTML = text;
-		});
-	}
-}
 
 
 
